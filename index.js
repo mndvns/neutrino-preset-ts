@@ -46,7 +46,7 @@ module.exports = (neutrino) => {
   const indexEntry = join(neutrino.options.source, 'index');
   const defaultEntry = indexEntry + '.js';
   const defaultTsEntry = indexEntry + '.ts';
-  neutrino.use(env);
+  neutrino.use(env, []);
   neutrino.use(htmlLoader);
   neutrino.use(styleLoader);
   neutrino.use(fontLoader);
