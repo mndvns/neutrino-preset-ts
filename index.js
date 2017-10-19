@@ -43,8 +43,9 @@ function devServer({ config }, options) {
 }
 
 module.exports = (neutrino) => {
-  const defaultEntry = join(neutrino.options.source, 'index.js');
-  const defaultTsEntry = join(neutrino.options.source, 'index.ts');
+  const indexEntry = join(neutrino.options.source, 'index');
+  const defaultEntry = indexEntry + '.js';
+  const defaultTsEntry = indexEntry + '.ts';
   neutrino.use(env);
   neutrino.use(htmlLoader);
   neutrino.use(styleLoader);
@@ -58,7 +59,7 @@ module.exports = (neutrino) => {
     .target('web')
     .context(neutrino.options.root)
     .entry('index')
-      .add(neutrino.options.entry === defaultEntry ? defaultTsEntry : neutrino.options.entry)
+      .add([defaultEntry, indexEntry].includes(neutrino.options.entry) ? defaultTsEntry : neutrino.options.entry)
       .end()
     .output
       .path(neutrino.options.output)
